@@ -1,0 +1,31 @@
+{
+  "name": "Shashi Caterers - Best Caterers in Udupi",
+  "short_name": "Shashi Caterers",
+  "description": "Premier catering service in Shirva, Udupi specializing in wedding catering, corporate events, and celebrations with authentic South Indian cuisine.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#FF6B35",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": [
+    "food",
+    "catering",
+    "restaurant"
+  ],
+  "lang": "en-IN",
+  "dir": "ltr"
+}
