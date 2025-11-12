@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Home, Info, UtensilsCrossed, Package, Image, Star, Phone } from "lucide-react";
 import { useState } from "react";
 import { Button } from "./ui/button";
 import logo from "../assets/sashi-logo.jpg"; // Ensure you have a logo image at this path
@@ -10,18 +10,28 @@ const Navbar = () => {
   const location = useLocation();
 
   const navLinks = [
-    { name: "Home", path: "/" },
-    { name: "About", path: "/about" },
-    { name: "Menu", path: "/menu" },
-    { name: "Packages", path: "/packages" },
-    { name: "Gallery", path: "/gallery" },
-    { name: "Testimonials", path: "/testimonials" },
-    { name: "Contact", path: "/contact" },
+    { name: "Home", path: "/", icon: Home },
+    { name: "About", path: "/about", icon: Info },
+    { name: "Menu", path: "/menu", icon: UtensilsCrossed },
+    { name: "Packages", path: "/packages", icon: Package },
+    { name: "Gallery", path: "/gallery", icon: Image },
+    { name: "Testimonials", path: "/testimonials", icon: Star },
+    { name: "Contact", path: "/contact", icon: Phone },
   ];
 
   const isActive = (path: string) => location.pathname === path;
 
+  // Mobile bottom nav items (showing only most important pages)
+  const bottomNavItems = [
+    { name: "Home", path: "/", icon: Home },
+    { name: "Menu", path: "/menu", icon: UtensilsCrossed },
+    { name: "Packages", path: "/packages", icon: Package },
+    { name: "Gallery", path: "/gallery", icon: Image },
+    { name: "Contact", path: "/contact", icon: Phone },
+  ];
+
   return (
+    <>
     <motion.nav 
       initial={{ y: -100 }}
       animate={{ y: 0 }}
@@ -71,7 +81,7 @@ const Navbar = () => {
                 </Link>
               </motion.div>
             ))}
-            <motion.div
+            {/* <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: navLinks.length * 0.1 }}
@@ -81,7 +91,7 @@ const Navbar = () => {
                   Admin
                 </Button>
               </Link>
-            </motion.div>
+            </motion.div> */}
           </div>
 
           {/* Mobile Menu Button */}
@@ -125,7 +135,7 @@ const Navbar = () => {
                   </Link>
                 </motion.div>
               ))}
-              <motion.div
+              {/* <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: navLinks.length * 0.05 }}
@@ -135,12 +145,71 @@ const Navbar = () => {
                     Admin
                   </Button>
                 </Link>
-              </motion.div>
+              </motion.div> */}
             </motion.div>
           )}
         </AnimatePresence>
       </div>
     </motion.nav>
+
+    {/* Mobile Bottom Navigation */}
+    <motion.nav 
+      initial={{ y: 100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.5, delay: 0.2 }}
+      className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-background border-t border-border shadow-lg"
+    >
+      <div className="flex items-center justify-around px-2 py-2">
+        {bottomNavItems.map((item) => {
+          const Icon = item.icon;
+          const active = isActive(item.path);
+          
+          return (
+            <Link
+              key={item.path}
+              to={item.path}
+              className="flex-1"
+              onClick={() => setIsOpen(false)}
+            >
+              <motion.div
+                whileTap={{ scale: 0.9 }}
+                className={`flex flex-col items-center justify-center py-2 px-1 rounded-lg transition-colors ${
+                  active
+                    ? "text-primary"
+                    : "text-muted-foreground"
+                }`}
+              >
+                <motion.div
+                  animate={active ? { scale: [1, 1.2, 1] } : {}}
+                  transition={{ duration: 0.3 }}
+                >
+                  <Icon 
+                    size={22} 
+                    className={active ? "stroke-[2.5]" : "stroke-2"}
+                  />
+                </motion.div>
+                <span className={`text-[10px] mt-1 font-medium ${
+                  active ? "text-primary" : "text-muted-foreground"
+                }`}>
+                  {item.name}
+                </span>
+                {active && (
+                  <motion.div
+                    layoutId="bottomNavIndicator"
+                    className="absolute -top-[1px] left-0 right-0 h-[2px] bg-primary"
+                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                  />
+                )}
+              </motion.div>
+            </Link>
+          );
+        })}
+      </div>
+    </motion.nav>
+
+    {/* Spacer for bottom nav on mobile */}
+    <div className="md:hidden h-16" />
+    </>
   );
 };
 
