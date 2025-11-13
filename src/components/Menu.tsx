@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Leaf, Drumstick, Soup, Coffee, Salad, Cookie, Download, Flame, IceCream, Wine, Pizza, Fish, ChefHat, Dessert, Apple, Candy, Search, ChevronDown, ChevronUp, Filter, BookOpen, X } from "lucide-react";
 import MenuPDF from "@/assets/ShashiMenu.pdf";
 
@@ -16,6 +16,17 @@ const Menu = () => {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [expandedCategories, setExpandedCategories] = useState<{ [key: string]: boolean }>({});
   const [showAllCategories, setShowAllCategories] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect mobile device
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768 || /iPhone|iPad|iPod|Android/i.test(navigator.userAgent));
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   const menuCategories = {
     juices: {
@@ -684,12 +695,49 @@ const Menu = () => {
                   </DialogTitle>
                 </DialogHeader>
                 <div className="w-full h-full overflow-auto p-4">
-                  <iframe
-                    src={MenuPDF}
-                    className="w-full h-full rounded-lg border-2 border-border"
-                    title="Menu PDF Viewer"
-                    style={{ minHeight: '70vh' }}
-                  />
+                  {isMobile ? (
+                    // Mobile fallback - Direct link to open PDF
+                    <div className="flex flex-col items-center justify-center h-full space-y-6 p-6">
+                      <div className="text-center space-y-4">
+                        <div className="text-6xl mb-4">📖</div>
+                        <h3 className="text-xl font-semibold">View Menu PDF</h3>
+                        <p className="text-muted-foreground max-w-md">
+                          Click the button below to open the menu PDF in your browser or PDF reader app.
+                        </p>
+                      </div>
+                      <div className="flex flex-col gap-3 w-full max-w-sm">
+                        <Button
+                          size="lg"
+                          className="gap-2 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white w-full"
+                          asChild
+                        >
+                          <a href={MenuPDF} target="_blank" rel="noopener noreferrer">
+                            <BookOpen className="w-5 h-5" />
+                            Open Menu PDF
+                          </a>
+                        </Button>
+                        <Button
+                          size="lg"
+                          variant="outline"
+                          className="gap-2 w-full"
+                          asChild
+                        >
+                          <a href={MenuPDF} download="Shashi-Caterers-Menu.pdf">
+                            <Download className="w-5 h-5" />
+                            Download PDF
+                          </a>
+                        </Button>
+                      </div>
+                    </div>
+                  ) : (
+                    // Desktop - iframe viewer
+                    <iframe
+                      src={MenuPDF}
+                      className="w-full h-full rounded-lg border-2 border-border"
+                      title="Menu PDF Viewer"
+                      style={{ minHeight: '70vh' }}
+                    />
+                  )}
                 </div>
               </DialogContent>
             </Dialog>

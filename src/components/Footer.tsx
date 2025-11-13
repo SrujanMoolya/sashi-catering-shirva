@@ -85,34 +85,60 @@ const Footer = () => {
           >
             <h4 className="font-semibold mb-4">Contact Us</h4>
             <ul className="space-y-3 text-sm">
-              {[
-                { icon: MapPin, content: "Shirva, Udupi, Karnataka" },
-                { icon: Phone, content: "+91 98765 43210", link: "tel:+918197968868" },
-                { icon: Mail, content: "info@shashicaterers.com", link: "mailto:Shashi.cateres.shirva@gmail.com" },
-                { icon: Instagram, content: "@shashicaterers", link: "https://instagram.com/shashicaterers" }
-              ].map((item, index) => (
-                <motion.li 
-                  key={index}
-                  initial={{ x: -20, opacity: 0 }}
-                  animate={footerInView ? { x: 0, opacity: 1 } : {}}
-                  transition={{ duration: 0.4, delay: 0.4 + index * 0.05 }}
-                  className="flex items-center gap-2"
-                >
-                  <item.icon className="w-4 h-4 text-primary flex-shrink-0" />
-                  {item.link ? (
-                    <a 
-                      href={item.link} 
-                      target={item.icon === Instagram ? "_blank" : undefined}
-                      rel={item.icon === Instagram ? "noopener noreferrer" : undefined}
-                      className="text-muted-foreground hover:text-primary transition-colors"
-                    >
-                      {item.content}
+              <motion.li 
+                initial={{ x: -20, opacity: 0 }}
+                animate={footerInView ? { x: 0, opacity: 1 } : {}}
+                transition={{ duration: 0.4, delay: 0.4 }}
+                className="flex items-center gap-2"
+              >
+                <MapPin className="w-4 h-4 text-primary flex-shrink-0" />
+                <span className="text-muted-foreground">Shirva, Udupi, Karnataka</span>
+              </motion.li>
+              <motion.li 
+                initial={{ x: -20, opacity: 0 }}
+                animate={footerInView ? { x: 0, opacity: 1 } : {}}
+                transition={{ duration: 0.4, delay: 0.45 }}
+                className="flex flex-col gap-1"
+              >
+                <div className="flex items-center gap-2">
+                  <Phone className="w-4 h-4 text-primary flex-shrink-0" />
+                  <div className="flex flex-col">
+                    <a href="tel:+919448128132" className="text-muted-foreground hover:text-primary transition-colors">
+                      Ravindra: +91 9448128132
                     </a>
-                  ) : (
-                    <span className="text-muted-foreground">{item.content}</span>
-                  )}
-                </motion.li>
-              ))}
+                    <a href="tel:+918197968868" className="text-muted-foreground hover:text-primary transition-colors">
+                      Varun: +91 8197968868
+                    </a>
+                  </div>
+                </div>
+              </motion.li>
+              <motion.li 
+                initial={{ x: -20, opacity: 0 }}
+                animate={footerInView ? { x: 0, opacity: 1 } : {}}
+                transition={{ duration: 0.4, delay: 0.5 }}
+                className="flex items-center gap-2"
+              >
+                <Mail className="w-4 h-4 text-primary flex-shrink-0" />
+                <a href="mailto:shashi.caterers.shirva@gmail.com" className="text-muted-foreground hover:text-primary transition-colors">
+                  shashi.caterers.shirva@gmail.com
+                </a>
+              </motion.li>
+              <motion.li 
+                initial={{ x: -20, opacity: 0 }}
+                animate={footerInView ? { x: 0, opacity: 1 } : {}}
+                transition={{ duration: 0.4, delay: 0.55 }}
+                className="flex items-center gap-2"
+              >
+                <Instagram className="w-4 h-4 text-primary flex-shrink-0" />
+                <a 
+                  href="https://instagram.com/shashicaterers" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                >
+                  @shashicaterers
+                </a>
+              </motion.li>
             </ul>
           </motion.div>
         </div>

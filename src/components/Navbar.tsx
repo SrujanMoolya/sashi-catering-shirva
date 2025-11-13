@@ -221,7 +221,7 @@ const Navbar = () => {
     </motion.nav>
 
     {/* Spacer for bottom nav on mobile */}
-    <div className="md:hidden h-20" />
+    {/* <div className="md:hidden h-20" /> */}
     </>
   );
 };

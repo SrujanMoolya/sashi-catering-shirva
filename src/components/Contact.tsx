@@ -38,9 +38,45 @@ const Contact = () => {
       return;
     }
 
+    // Prepare WhatsApp message
+    const whatsappMessage = `*New Booking Request*\n\n` +
+      `Name: ${formData.name}\n` +
+      `Phone: ${formData.phone}\n` +
+      `Email: ${formData.email || 'Not provided'}\n` +
+      `Event Type: ${formData.eventType}\n` +
+      `Expected Guests: ${formData.guests || 'Not specified'}\n` +
+      `Event Date: ${formData.eventDate || 'Not specified'}\n` +
+      `Additional Details: ${formData.message || 'None'}\n\n` +
+      `Please confirm this booking.`;
+
+    // WhatsApp number (Varun Shetty)
+    const whatsappNumber = "918197968868";
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+
+    // Prepare email
+    const emailSubject = `Booking Request - ${formData.eventType} - ${formData.name}`;
+    const emailBody = `New Booking Request Details:\n\n` +
+      `Name: ${formData.name}\n` +
+      `Phone: ${formData.phone}\n` +
+      `Email: ${formData.email || 'Not provided'}\n` +
+      `Event Type: ${formData.eventType}\n` +
+      `Expected Guests: ${formData.guests || 'Not specified'}\n` +
+      `Event Date: ${formData.eventDate || 'Not specified'}\n` +
+      `Additional Details: ${formData.message || 'None'}`;
+
+    const mailtoUrl = `mailto:shashi.caterers.shirva@gmail.com?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+
+    // Open WhatsApp
+    window.open(whatsappUrl, '_blank');
+    
+    // Open email client
+    setTimeout(() => {
+      window.open(mailtoUrl, '_blank');
+    }, 500);
+
     toast({
-      title: "Booking Request Submitted!",
-      description: "We'll contact you within 24 hours to confirm your booking.",
+      title: "Booking Request Prepared!",
+      description: "WhatsApp and Email will open. Please send both messages to complete your booking request.",
     });
 
     // Reset form
@@ -91,8 +127,8 @@ const Contact = () => {
               <CardContent className="space-y-4">
                 {[
                   { icon: MapPin, title: "Address", content: "Shirva, Udupi\nKarnataka, India" },
-                  { icon: Phone, title: "Phone", content: "+91 9448128132\n+91 8197968868", links: ["tel:+919448128132", "tel:+918197968868"] },
-                  { icon: Mail, title: "Email", content: "shashi.caterers.shirva@gmail.com", link: "mailto:info@shashicaterers.com" },
+                  { icon: Phone, title: "Phone", content: "Ravindra Shetty: +91 9448128132\nVarun Shetty: +91 8197968868" },
+                  { icon: Mail, title: "Email", content: "shashi.caterers.shirva@gmail.com", link: "mailto:shashi.caterers.shirva@gmail.com" },
                   { icon: Clock, title: "Business Hours", content: "Mon - Sun: 9:00 AM - 8:00 PM" }
                 ].map((item, index) => (
                   <motion.div
@@ -107,15 +143,20 @@ const Contact = () => {
                     <div>
                       <p className="font-medium">{item.title}</p>
                       {item.title === "Phone" ? (
-                        <>
-                          <a href="tel:+919448128132" className="text-sm text-muted-foreground hover:text-primary">
-                            +91 9448128132
-                          </a>
-                          <br />
-                          <a href="tel:+918197968868" className="text-sm text-muted-foreground hover:text-primary">
-                            +91 8197968868
-                          </a>
-                        </>
+                        <div className="space-y-1">
+                          <div>
+                            <p className="text-xs text-muted-foreground">Ravindra Shetty</p>
+                            <a href="tel:+919448128132" className="text-sm text-muted-foreground hover:text-primary">
+                              +91 9448128132
+                            </a>
+                          </div>
+                          <div>
+                            <p className="text-xs text-muted-foreground">Varun Shetty</p>
+                            <a href="tel:+918197968868" className="text-sm text-muted-foreground hover:text-primary">
+                              +91 8197968868
+                            </a>
+                          </div>
+                        </div>
                       ) : item.link ? (
                         <a href={item.link} className="text-sm text-muted-foreground hover:text-primary">
                           {item.content}
