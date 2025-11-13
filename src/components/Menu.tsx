@@ -2,10 +2,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
-import { Leaf, Drumstick, Soup, Coffee, Salad, Cookie, Download, Flame, IceCream, Wine, Pizza, Fish, ChefHat, Dessert, Apple, Candy, Search, ChevronDown, ChevronUp, Filter } from "lucide-react";
+import { Leaf, Drumstick, Soup, Coffee, Salad, Cookie, Download, Flame, IceCream, Wine, Pizza, Fish, ChefHat, Dessert, Apple, Candy, Search, ChevronDown, ChevronUp, Filter, BookOpen, X } from "lucide-react";
 import MenuPDF from "@/assets/ShashiMenu.pdf";
 
 const Menu = () => {
@@ -650,6 +651,7 @@ const Menu = () => {
             initial={{ scale: 0 }}
             animate={headerInView ? { scale: 1 } : {}}
             transition={{ duration: 0.5, delay: 0.4 }}
+            className="flex flex-wrap gap-3 justify-center"
           >
             <Button
               size="lg"
@@ -658,9 +660,39 @@ const Menu = () => {
             >
               <a href={MenuPDF} download="Shashi-Caterers-Menu.pdf" target="_blank" rel="noopener noreferrer">
                 <Download className="w-5 h-5" />
-                Download Full Menu PDF
+                Download Menu PDF
               </a>
             </Button>
+
+            {/* Read Menu Button with Dialog */}
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="gap-2 border-2 border-orange-500 text-orange-600 hover:bg-orange-50 dark:hover:bg-orange-950/20 shadow-lg"
+                >
+                  <BookOpen className="w-5 h-5" />
+                  Read Menu
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-6xl h-[90vh] p-0 overflow-hidden">
+                <DialogHeader className="p-6 pb-4 border-b bg-gradient-to-r from-orange-50 to-amber-50 dark:from-orange-950/20 dark:to-amber-950/20">
+                  <DialogTitle className="text-2xl font-bold bg-gradient-to-r from-orange-600 to-amber-600 bg-clip-text text-transparent flex items-center gap-2">
+                    <BookOpen className="w-6 h-6 text-orange-600" />
+                    Shashi Caterers Menu
+                  </DialogTitle>
+                </DialogHeader>
+                <div className="w-full h-full overflow-auto p-4">
+                  <iframe
+                    src={MenuPDF}
+                    className="w-full h-full rounded-lg border-2 border-border"
+                    title="Menu PDF Viewer"
+                    style={{ minHeight: '70vh' }}
+                  />
+                </div>
+              </DialogContent>
+            </Dialog>
           </motion.div>
         </motion.div>
 
