@@ -1,4 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { Star } from "lucide-react";
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
@@ -128,9 +129,11 @@ const Testimonials = () => {
             Had a great experience with shashi Caterers? We'd love to hear from you! 
             Your feedback helps us serve you better.
           </p>
-          <p className="text-sm text-muted-foreground">
-            Contact us to share your testimonial or leave a review on our social media pages.
-          </p>
+          <Button asChild className="mt-2">
+            <a href="https://maps.app.goo.gl/RbecYz81khGV3vSQA" target="_blank" rel="noopener noreferrer">
+              Leave a Review on Google Maps
+            </a>
+          </Button>
         </motion.div>
       </div>
     </div>
