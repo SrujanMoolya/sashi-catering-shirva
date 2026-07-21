@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 
+
 const About = () => {
   const heroRef = useRef(null);
   const storyRef = useRef(null);
@@ -48,7 +49,7 @@ const About = () => {
             initial={{ scale: 1.2, opacity: 0 }}
             animate={heroInView ? { scale: 1, opacity: 1 } : {}}
             transition={{ duration: 1 }}
-            src="https://blog.venuelook.com/wp-content/uploads/2025/06/Working-With-Caterers.webp"
+            src={aboutImage}
             alt="Elegant South Indian wedding buffet setup with traditional decorations"
             className="w-full h-full object-cover rounded-3xl"
           />
